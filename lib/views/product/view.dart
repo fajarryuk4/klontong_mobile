@@ -123,19 +123,33 @@ class ProductListTile extends StatelessWidget {
       ),
       title: Text(item.name ?? ''),
       subtitle: Text('Rp. ${item.harga}'),
-      trailing: IconButton(
-        onPressed: () => showDialog<bool>(
-          context: context,
-          builder: (context) => const DeleteDialog(),
-        ).then(
-          (value) => (value ?? false)
-              ? bloc.add(ProductEventDeleteProduct(item.id ?? ''))
-              : null,
-        ),
-        icon: Icon(
-          Icons.delete,
-          color: Theme.of(context).colorScheme.error,
-        ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            onPressed: () => context.goNamed(
+              Routes.detailProduct,
+              pathParameters: {'productId': item.id ?? ''},
+              extra: item,
+            ),
+            icon: const Icon(Icons.edit),
+          ),
+          const Gap(5),
+          IconButton(
+            onPressed: () => showDialog<bool>(
+              context: context,
+              builder: (context) => const DeleteDialog(),
+            ).then(
+              (value) => (value ?? false)
+                  ? bloc.add(ProductEventDeleteProduct(item.id ?? ''))
+                  : null,
+            ),
+            icon: Icon(
+              Icons.delete,
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+        ],
       ),
     );
   }
