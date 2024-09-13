@@ -42,12 +42,6 @@ class ProductFormPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('Product Form'),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.contact_support),
-            ),
-          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
