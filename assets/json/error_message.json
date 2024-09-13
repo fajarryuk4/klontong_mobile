@@ -1,0 +1,47 @@
+{
+    "connection_error": {
+        "title": "Failed to access internet",
+        "message": "An internet connection error occurred. Please try again later."
+    },
+    "connection_timeout": {
+        "title": "Connection timed out.",
+        "message": "Please check your internet connection and try again."
+    },
+    "receive_timeout": {
+        "title": "Failed to receive data.",
+        "message": "Please check your internet connection and try again."
+    },
+    "send_timeout": {
+        "title": "Failed to send data",
+        "message": "Please check your internet connection and try again."
+    },
+    "cancel": {
+        "title": "Request has been cancelled.",
+        "message": ""
+    },
+    "unknown": {
+        "title": "An unexpected error occurred.",
+        "message": "An error occurred on the apps. Please try again later."
+    },
+    "400": {
+        "title": "Invalid request.",
+        "message": "Please check the data you entered and try again."
+    },
+    "401": {
+        "title": "You are not permitted.",
+        "message": "Please check your credentials and try again."
+    },
+    "403": {
+        "title": "Access denied.",
+        "message": "You do not have permission to access this resource."
+    },
+    "404": {
+        "title": "Resource not found.",
+        "message": "Please check the URL and try again."
+    },
+    "500": {
+        "title": "Server Error",
+        "message": "An error occurred on the server. Please try again later."
+    },
+    "": ""
+}
