@@ -89,7 +89,10 @@ class ProductListView extends StatelessWidget {
       onRefresh: () => bloc.add(ProductEventRefreshList()),
       onLoading: () => bloc.add(ProductEventLoadList()),
       itemsCount: items.length,
-      itemBuilder: (context, i) => ProductListTile(item: items[i]),
+      itemBuilder: (context, i) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ProductListTile(item: items[i]),
+      ),
     );
   }
 }
@@ -107,6 +110,11 @@ class ProductListTile extends StatelessWidget {
     final bloc = context.read<ProductBloc>();
 
     return ListTile(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side:
+            BorderSide(color: Theme.of(context).colorScheme.onPrimaryContainer),
+      ),
       onTap: () => context.goNamed(
         Routes.detailProduct,
         pathParameters: {'productId': item.id ?? ''},
@@ -127,6 +135,9 @@ class ProductListTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
+            style: IconButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            ),
             onPressed: () => context.goNamed(
               Routes.detailProduct,
               pathParameters: {'productId': item.id ?? ''},
@@ -136,6 +147,9 @@ class ProductListTile extends StatelessWidget {
           ),
           const Gap(5),
           IconButton(
+            style: IconButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.errorContainer,
+            ),
             onPressed: () => showDialog<bool>(
               context: context,
               builder: (context) => const DeleteDialog(),

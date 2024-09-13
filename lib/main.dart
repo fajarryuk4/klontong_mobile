@@ -51,10 +51,18 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           inputDecorationTheme: const InputDecorationTheme(
             filled: true,
+            fillColor: Colors.white,
             contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5)),
+            ),
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              side: WidgetStatePropertyAll(BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+              )),
             ),
           ),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),

@@ -39,9 +39,9 @@ class XSearchBar extends StatelessWidget {
           onChanged: onChanged,
           decoration: InputDecoration(
             label: Text(label ?? 'Search'),
-            fillColor: Colors.white,
             suffixIcon: suffixIcon ??
                 IconButton(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   onPressed:
                       (onSearch != null) ? () => onSearch!(tec.text) : null,
                   icon: const Icon(Icons.search),
