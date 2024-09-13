@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:klontong_mobile/bloc/product/product_bloc.dart';
 import 'package:klontong_mobile/components/dialogs/delete_dialog.dart';
 import 'package:klontong_mobile/components/layouts/list_view.dart';
+import 'package:klontong_mobile/components/search_bar.dart';
 import 'package:klontong_mobile/models/product.dart';
 import 'package:klontong_mobile/routes/router.dart';
 
@@ -13,39 +15,56 @@ class ProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final refreshController = RefreshController(initialRefresh: true);
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('List Product'),
-      ),
-      body: BlocConsumer<ProductBloc, ProductState>(
-        listener: (context, state) => switch (state) {
-          ProductStateComplete _ => Future.delayed(
-              const Duration(seconds: 1),
-              () {
-                try {
-                  refreshController.requestRefresh();
-                } catch (e) {
-                  context.read<ProductBloc>().add(ProductEventRefreshList());
-                }
-              },
-            ),
-          ProductListComplete _ => refreshController.twoLevelComplete(),
-          ProductStateError _ => () {
-              refreshController.loadFailed();
-              refreshController.refreshFailed();
-            },
-          _ => null,
-        },
-        builder: (context, state) => ProductListView(
-          refreshController: refreshController,
-          items: (state is ProductListComplete) ? state.items : [],
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('List Product'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(Routes.addProduct),
-        tooltip: 'Add Product',
-        child: const Icon(Icons.add),
+        body: BlocConsumer<ProductBloc, ProductState>(
+          listener: (context, state) => switch (state) {
+            ProductStateComplete _ => Future.delayed(
+                const Duration(seconds: 1),
+                () {
+                  try {
+                    refreshController.requestRefresh();
+                  } catch (e) {
+                    context.read<ProductBloc>().add(ProductEventRefreshList());
+                  }
+                },
+              ),
+            ProductListComplete _ => refreshController.twoLevelComplete(),
+            ProductStateError _ => () {
+                refreshController.loadFailed();
+                refreshController.refreshFailed();
+              },
+            _ => null,
+          },
+          builder: (context, state) => Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: XSearchBar(
+                  onSearch: (v) => context
+                      .read<ProductBloc>()
+                      .add(ProductEventFilterList(search: v)),
+                ),
+              ),
+              Expanded(
+                child: ProductListView(
+                  refreshController: refreshController,
+                  items: (state is ProductListComplete) ? state.items : [],
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => context.goNamed(Routes.addProduct),
+          tooltip: 'Add Product',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
