@@ -25,7 +25,7 @@ class DeleteDialog extends StatelessWidget {
 
     return AlertDialog(
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-      title: icon ?? Icon(Icons.delete, size: 75, color: color.error),
+      title: icon ?? Icon(Icons.delete, size: 50, color: color.error),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
