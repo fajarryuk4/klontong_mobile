@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:klontong_mobile/services/navigation.dart';
 
 class DioExceptionHandler {
@@ -43,11 +44,19 @@ class DioExceptionHandler {
       content: Row(
         children: [
           Icon(Icons.error, color: Theme.of(context).colorScheme.onError),
-          Column(
-            children: [
-              if (title != null) Text(title),
-              if (message != null) Text(message),
-            ],
+          const Gap(8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (title != null)
+                  Text(
+                    title,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                if (message != null) Text(message),
+              ],
+            ),
           ),
         ],
       ),
